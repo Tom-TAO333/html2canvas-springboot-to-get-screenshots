@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.example.test.pojo.User">
+        <result column="product_name" javaType="java.lang.String" jdbcType="VARCHAR" property="product_name" />
+        <result column="official_price" javaType="java.lang.String" jdbcType="VARCHAR" property="official_price" />
+        <result column="image_url" javaType="java.lang.String" jdbcType="VARCHAR" property="image_url" />
+        <result column="create_time" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" property="create_time" />
+    </resultMap>
+
+    <select id="findAll" parameterType="int" resultMap="BaseResultMap">
+        SELECT ANY_VALUE(m.product_name) as product_name, ANY_VALUE(n.official_price) as official_price,
+               ANY_VALUE(n.wechat_image_url) as image_url, ANY_VALUE(MIN(m.create_time)) as create_time
+        FROM lv_product_info n
+                 RIGHT JOIN lv_product_monitor_info m
+                            ON m.item_no=n.item_no
+        WHERE m.product_name IN(
+            SELECT t.product_name FROM(
+                                          SELECT q.product_name FROM lv_product_info p
+                                                                         RIGHT JOIN lv_product_monitor_info q
+                                                                                    ON p.item_no=q.item_no
+                                            WHERE DATE_FORMAT(q.create_time,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')
+                                            AND q.in_stock="上线"
+                                          GROUP BY q.product_name
+                                          ORDER BY ANY_VALUE(q.id) DESC LIMIT #{num},12) as t
+        )
+        GROUP BY product_name;
+    </select>
+
+</mapper>

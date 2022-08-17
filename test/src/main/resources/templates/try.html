@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LV Search</title>
+<style>
+    *{
+        margin: 10px;
+        padding: 0;
+        font-size: 14px;
+    }
+    h1 {
+        font-size:40px;
+    }
+    ul{
+        list-style: none;
+    }
+    .btn{
+        display:block;
+        width:500px;
+        height:50px;
+        margin:20px auto;
+        line-height: 50px;
+        text-align: center;
+        border:1px #000 solid;
+        color:#000;
+        transition:.1s linear;
+    }
+    .btn:hover{
+        background: #dd6600;
+        color:#fff;
+        font-weight: bold;
+    }
+    .updatepage{
+        display:block;
+        width:150px;
+        height:50px;
+        margin: 10px auto;
+        line-height: 50px;
+        text-align: center;
+        border:1px #000 solid;
+        color:#000;
+        transition:.1s linear;
+    }
+    .updatepage:hover{
+        background: #dd6600;
+        color:#fff;
+        font-weight: bold;
+    }
+    .name {
+        font-weight: bold;
+    }
+    td{
+        width:200px;height:200px
+    }
+    .imag{
+        width:auto;height:auto;
+    }
+    #main {
+        width: 800px;
+        height: auto;
+        margin: 0 auto;
+    }
+    #main table p {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 0;
+    }
+    #main table td {
+        border: 1px solid gainsboro;
+        padding: 1px;
+        border-radius: 1px;
+    }
+    .page a,.page span{
+        text-decoration: none;
+        border: 1px solid #f9d52b;
+        padding: 5px 7px;
+        color: #767675;
+        cursor: pointer;
+    }
+    .page a:hover,.page span:hover{
+        color:red;
+    }
+
+</style>
+
+<script src="./jquery.min.js"></script>
+<script src="./html2canvas.min.js"></script>
+
+</head>
+
+<body onload="countNum(0)">
+<h1 style="text-align:center">商品详情</h1>
+<script>
+    function loadImage(num) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/findAll",
+            data: {
+                "num": num
+            },
+            dataType: "json",
+            success: function (result) {
+                let i;
+                console.log(result.length);
+                for(i=0;i<12;i++){
+                    document.getElementById("main").getElementsByClassName("imag")[i].src = result[i].image_url + '?time=' + new Date().valueOf();
+                    document.getElementById("main").getElementsByClassName("price")[i].innerHTML = "&yen" + result[i].official_price;
+                    document.getElementById("main").getElementsByClassName("name")[i].innerHTML = result[i].product_name;
+                    document.getElementById("main").getElementsByClassName("time")[i].innerHTML = "首次上架时间：" + result[i].create_time;
+                }
+            }
+        })
+    }
+</script>
+
+<div id="main" class="load">
+    <table width="100%" id="tb">
+        <tr align="center">
+            <td class="td">
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+            <td class="td">
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+            <td class="td">
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+            <td>
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+            <td>
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+            <td>
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+            <td>
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+            <td>
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+            <td>
+                <img class="imag" src="" onError="this.src='../picture/lv.png';" width="200px" crossorigin="anonymous"/>
+                <p class="name"></p>
+                <p class="price" style="color: orange;"></p>
+                <p class="time" style="color: gray;"></p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    function testScreen() {
+        console.log('tb');
+        window.pageYoffset = 0;
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        html2canvas(document.getElementById('tb'), {
+            width: document.getElementById('tb').clientWidth,
+            height: document.getElementById('tb').clientHeight,
+            useCORS: true,
+            scrollx: 0,
+            scrolly: 0,
+            scale: 1,
+        }).then((canvas) => {
+            let canvasImg = canvas.toDataURL("image/png");
+            downLoadFile("simple.png", canvasImg);
+        })
+    }
+
+    function downLoadFile(fileName, canvasImg) {
+        var a = document.createElement('a')
+        a.href = canvasImg;
+        a.download = fileName
+        let event = document.createEvent("MouseEvents")
+        event.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+        a.dispatchEvent(event)
+    }
+</script>
+
+<script>
+    var num = 0;
+    var count = 0;
+    function countNum(count){
+        if(count === 0){
+            if(count > 0){
+                num++
+                loadImage(num);
+            }
+            else if(count <= 0){
+                loadImage(0);
+            }
+        }
+        if(count === 1){
+            num++;
+            loadImage(num);
+        }
+    }
+</script>
+
+<div>
+    <a class="updatepage" onclick="countNum(0)">上一页</a>
+    <a class="updatepage" onclick="countNum(1)">下一页</a>
+</div>
+
+<div>
+    <a class="btn" onclick="testScreen()">截图</a>
+</div>
+
+
+</body>
+</html>
